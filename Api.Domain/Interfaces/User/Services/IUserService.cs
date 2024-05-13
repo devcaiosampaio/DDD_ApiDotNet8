@@ -1,6 +1,6 @@
 ﻿using Api.Domain.Entities;
 
-namespace Api.Domain.Interfaces.Services.User;
+namespace Api.Domain.Interfaces.User.Services;
 public interface IUserService
 {
     Task<UserEntity?> Get(Guid id);

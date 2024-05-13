@@ -1,4 +1,4 @@
-﻿using Api.Domain.Interfaces.Services.User;
+﻿using Api.Domain.Interfaces.User.Services;
 using Api.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +9,7 @@ public static class ServiceInjection
     public static IServiceCollection AddService(this IServiceCollection services)
     {
         services.AddTransient<IUserService, UserService>();
+        services.AddTransient<ILoginService, LoginService>();
 
         return services;
     }

@@ -1,13 +1,12 @@
 ﻿
 using Api.Data.Context;
+using Api.Data.Implementations;
 using Api.Data.Repository;
 using Api.Domain.Interfaces;
-using Api.Domain.Interfaces.Services.User;
-using Api.Service.Services;
+using Api.Domain.Interfaces.User.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Data;
 
 namespace Api.CrossCutting.AppDependencies;
 
@@ -23,6 +22,7 @@ public static class InfrastructureInjection
               options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
         services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+        services.AddScoped<IUserRepository, UserImplementation>();
 
         return services;
 
