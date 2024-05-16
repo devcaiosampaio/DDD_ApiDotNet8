@@ -1,4 +1,7 @@
 using Api.CrossCutting.AppDependencies;
+using Api.Domain.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Application
@@ -30,12 +33,32 @@ namespace Api.Application
                         Url = new Uri("https://github.com/devcaiosampaio")
                     }
                 });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Entre com o Token JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    }, new List<string>()
+                }});
             });
 
             // Registro da injeção de dependência do DbContext
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddService();
-
+            builder.Services.AddSecurity(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

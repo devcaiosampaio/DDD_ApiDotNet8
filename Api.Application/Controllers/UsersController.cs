@@ -1,5 +1,6 @@
 ﻿using Api.Domain.Entities;
 using Api.Domain.Interfaces.User.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,6 +10,7 @@ namespace Api.Application.Controllers
     [Route("[controller]")]
     public class UsersController(IUserService _userService) : ControllerBase
     {
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -24,6 +26,8 @@ namespace Api.Application.Controllers
             }
             
         }
+
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult> GetId([FromHeader] Guid id)
@@ -40,6 +44,8 @@ namespace Api.Application.Controllers
             }
 
         }
+
+        [Authorize("Bearer")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserEntity user)
         {
@@ -55,6 +61,8 @@ namespace Api.Application.Controllers
             }
 
         }
+
+        [Authorize("Bearer")]
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult> Put([FromHeader] Guid id, [FromBody] UserEntity user)
@@ -71,6 +79,8 @@ namespace Api.Application.Controllers
             }
 
         }
+
+        [Authorize("Bearer")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult> Delete([FromHeader] Guid id)
