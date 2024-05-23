@@ -19,7 +19,9 @@ public static class InfrastructureInjection
         var mySqlConnection = configuration.GetConnectionString("dbConnection") ?? string.Empty;
 
         services.AddDbContext<MyContext>(options =>
-              options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+                //options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
+                options.UseSqlServer(mySqlConnection)
+              );
 
         services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IUserRepository, UserImplementation>();

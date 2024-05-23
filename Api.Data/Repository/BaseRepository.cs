@@ -68,7 +68,7 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
             if(entity.Id == Guid.Empty)
                 entity.Id = Guid.NewGuid();
 
-            entity.CreatAt = DateTime.UtcNow;
+            entity.CreateAt = DateTime.UtcNow;
             _dataSet.Add(entity);
 
             await _dbContext.SaveChangesAsync();
@@ -88,7 +88,7 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
             if (result == null)
                 return null;
 
-            entity.CreatAt = result.CreatAt;
+            entity.CreateAt = result.CreateAt;
             entity.UpdateAt = DateTime.UtcNow;
 
             _dbContext.Entry(result).CurrentValues.SetValues(entity);

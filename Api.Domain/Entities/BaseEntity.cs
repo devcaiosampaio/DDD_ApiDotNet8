@@ -6,11 +6,11 @@ public abstract class BaseEntity
     [Key]
     public Guid Id { get; set; }
 
-    private DateTime? _creatAt;
-    public DateTime? CreatAt
+    private DateTime? _createAt;
+    public DateTime? CreateAt
     {
-        get { return _creatAt; }
-        set { _creatAt = value ?? DateTime.UtcNow; }
+        get { return _createAt; }
+        set { _createAt = value ?? DateTime.UtcNow; }
     }
     public DateTime? UpdateAt { get; set; }
 
