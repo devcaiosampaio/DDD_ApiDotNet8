@@ -1,4 +1,4 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos.User;
 using Api.Domain.Interfaces.User.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace Api.Application.Controllers
         [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult> GetId([FromHeader] Guid id)
+        public async Task<ActionResult> GetId(Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -47,7 +47,7 @@ namespace Api.Application.Controllers
 
         [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserEntity user)
+        public async Task<ActionResult> Post([FromBody] UserDtoCreateUpdate user)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -65,13 +65,13 @@ namespace Api.Application.Controllers
         [Authorize("Bearer")]
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult> Put([FromHeader] Guid id, [FromBody] UserEntity user)
+        public async Task<ActionResult> Put(Guid id, [FromBody] UserDtoCreateUpdate user)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                return Ok(await _userService.Put(user));
+                return Ok(await _userService.Put(user, id));
             }
             catch (ArgumentException e)
             {
@@ -83,7 +83,7 @@ namespace Api.Application.Controllers
         [Authorize("Bearer")]
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult> Delete([FromHeader] Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

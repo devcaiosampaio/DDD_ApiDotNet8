@@ -1,6 +1,8 @@
-﻿using Api.Domain.Interfaces.User.Services;
+﻿using Api.CrossCutting.Mappings;
+using Api.Domain.Interfaces.User.Services;
 using Api.Domain.Security;
 using Api.Service.Services;
+using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 namespace Api.CrossCutting.AppDependencies;
@@ -11,6 +13,7 @@ public static class ServiceInjection
     {
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<ILoginService, LoginService>();
+
         return services;
     }
 }

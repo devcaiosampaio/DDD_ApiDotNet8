@@ -56,9 +56,12 @@ namespace Api.Application
             });
 
             // Registro da injeção de dependência do DbContext
-            builder.Services.AddInfrastructure(builder.Configuration);
+
             builder.Services.AddService();
+            builder.Services.AddMapping();
+            builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddSecurity(builder.Configuration);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
