@@ -23,16 +23,16 @@ public class LoginService : ILoginService
         _signingConfigurations = signingConfigurations;
         _tokenConfiguration = tokenConfiguration;
     }
-    public async Task<object?> FindByEmail(LoginDto user)
+    public async Task<object?> FindByEmail(LoginDto loginDto)
     {
-        if (user is null || string.IsNullOrWhiteSpace(user.Email))
+        if (loginDto is null || string.IsNullOrWhiteSpace(loginDto.Email))
             return new
             {
                 autenticated = false,
                 message = "Falha ao autenticar"
-            }; ;
+            };
 
-        var baseUser = await _userRepository.FindByEmail(user.Email);
+        var baseUser = await _userRepository.FindByEmail(loginDto.Email);
 
         if (baseUser is null)
             return new
@@ -41,12 +41,12 @@ public class LoginService : ILoginService
                 message =  "Falha ao autenticar"
             };
 
-        ClaimsIdentity identity = new ClaimsIdentity(
-                        new GenericIdentity(user.Email),
+        ClaimsIdentity identity = new(
+                        new GenericIdentity(loginDto.Email),
                         new[]
                         {
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                            new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+                            new Claim(JwtRegisteredClaimNames.UniqueName, loginDto.Email),
                         }
                     );
 

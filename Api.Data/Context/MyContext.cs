@@ -25,9 +25,4 @@ public class MyContext : DbContext
             }
          );
     }
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseMySql("Server=localhost;Port=3306;Database=dbAPI;Uid=root;Pwd=root",
-                       ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=dbAPI;Uid=root;Pwd=root"));
-    }*/
 }

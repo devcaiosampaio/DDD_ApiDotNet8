@@ -1,7 +1,4 @@
 using Api.CrossCutting.AppDependencies;
-using Api.Domain.Security;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Application
