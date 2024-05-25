@@ -15,6 +15,6 @@ public class UserImplementation : BaseRepository<UserEntity>, IUserRepository
     }
     public async Task<UserEntity?> FindByEmail(string email)
     {
-        return await _dataset.FirstOrDefaultAsync(user => user.Name.Equals(email));
+        return await _dataset.FirstOrDefaultAsync(user => user.Email.Equals(email));
     }
 }
