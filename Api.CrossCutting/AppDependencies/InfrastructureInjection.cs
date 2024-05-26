@@ -44,10 +44,9 @@ public static class InfrastructureInjection
 
         return services;
 
-        static DatabaseSettings GetDatabaseSettingsFromConfiguration(IConfigurationSection configuration)
+        static DatabaseSettings GetDatabaseSettingsFromConfiguration(IConfigurationSection configurationSection)
         {
-            var databaseSetting = configuration
-                .GetSection(nameof(DatabaseSettings))
+            var databaseSetting = configurationSection
                 .Get<DatabaseSettings>()
                 ?? throw new NotImplementedException("É necessário implementar DI DatabaseSettings conforme a documentação");
             return databaseSetting;
