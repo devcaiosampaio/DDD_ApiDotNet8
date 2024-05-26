@@ -15,7 +15,10 @@ public class UserMock
 
     public UserDto userDto = new();
 
-    public readonly UserDtoCreateUpdate userDtoCreateUpdate;
+    public readonly UserDtoCreateUpdate userDtoCreate;
+    public readonly UserDtoCreateUpdate userDtoCreateNameNull;
+
+    public readonly UserDtoCreateUpdate userDtoUpdate;
 
     public readonly UserDtoCreateResult userDtoCreateResult;
 
@@ -39,9 +42,11 @@ public class UserMock
             });
         }
         userDto = new() { Id = IdUsuario, Name = NomeUsuario };
-        userDtoCreateUpdate = new() { Name = NomeUsuario, Email = EmailUsuario };
+        userDtoCreate = new() { Name = NomeUsuario, Email = EmailUsuario };
+        userDtoCreateNameNull = new() { Name = null, Email = Faker.Internet.Email() };
+        userDtoUpdate = new() { Name = NomeUsuarioAlterado, Email = EmailUsuarioAlterado };
         userDtoCreateResult = new() { Id = IdUsuario, Name = NomeUsuario, Email = EmailUsuario, CreateAt = DateTime.UtcNow };
-        userDtoUpdateResult = new() { Id = IdUsuario, Name = NomeUsuario, Email = EmailUsuario, UpdateAt = DateTime.UtcNow };
+        userDtoUpdateResult = new() { Id = IdUsuario, Name = NomeUsuarioAlterado, Email = EmailUsuarioAlterado, UpdateAt = DateTime.UtcNow };
     }
 
 }

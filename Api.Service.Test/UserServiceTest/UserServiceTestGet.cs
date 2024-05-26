@@ -1,48 +1,66 @@
 ﻿using Api.Domain.Dtos.User;
+using Api.Domain.Entities;
+using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.User.Services;
+using Api.Service.Services;
 using Api.Service.Test.Usuario;
 using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceTestGet : UserMock
+public class UserServiceTestGet : BaseTestService
 {
-    private IUserService _userService;
-    private Mock<IUserService> _userServiceMock;
+    private readonly Mock<IRepository<UserEntity>> _repositoryMock;
+    private readonly UserService _userService;
 
+    public UserServiceTestGet()
+    {
+        _repositoryMock = new Mock<IRepository<UserEntity>>();
+        _userService = new UserService(_repositoryMock.Object, _mapper);
+    }
     [Fact]
     public async Task GetUserService_IdValid_ReturnsUser()
     {
         //Arrange
-        _userServiceMock = new Mock<IUserService>();
-        _userServiceMock
-            .Setup(mock => mock.Get(IdUsuario))
-            .ReturnsAsync(userDto);
-        _userService = _userServiceMock.Object;
+        var idUsuario = Guid.NewGuid();
+        UserEntity userEntity = new()
+        {
+            Id = Guid.NewGuid(),
+            Name = Faker.Name.FullName(),
+            Email = Faker.Internet.Email(),
+            CreateAt = DateTime.UtcNow,
+            UpdateAt = DateTime.UtcNow
+
+        };
+        _repositoryMock
+            .Setup(repo => repo.GetByIdAsync(idUsuario))
+            .ReturnsAsync(userEntity);
 
         //Act
-        var result = await _userService.Get(IdUsuario);
+        var result = await _userService.Get(idUsuario);
 
         //Assert
         Assert.NotNull(result);
-        Assert.Equal(userDto.Name, result.Value.Name);
-        Assert.True(userDto.Id == result.Value.Id);
+        Assert.Equal(userEntity.Name, result.Value.Name);
+        Assert.Equal(userEntity.Email, result.Value.Email);
+        Assert.True(userEntity.Id == result.Value.Id);
 
     }
     [Fact]
     public async Task GetUserService_IdInvalid_ReturnsNull()
     {
         //Arrange
-        _userServiceMock = new Mock<IUserService>();
-        _userServiceMock
-            .Setup(mock => mock.Get(It.IsAny<Guid>()))
-            .ReturnsAsync((UserDto?) null);
-        _userService = _userServiceMock.Object;
+        _repositoryMock
+            .Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>()))
+            .ReturnsAsync((UserEntity?) null);
 
         //Act
-        var result = await _userService.Get(IdUsuario);
+        var result = await _userService.Get(Guid.NewGuid());
 
         //Assert
-        Assert.Null(result);
+        Assert.True(result.Value.Id == Guid.Empty);
+        Assert.True(result.Value.CreateAt == DateTime.MinValue);
+        Assert.Null(result.Value.Email);
+        Assert.Null(result.Value.Name);
     }
 }
