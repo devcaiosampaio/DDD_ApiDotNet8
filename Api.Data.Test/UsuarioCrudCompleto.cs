@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Data.Test;
-public class UsuarioCrudCompleto(DbTeste dbTeste) : BaseTest, IClassFixture<DbTeste>
+public class UsuarioCrudCompleto(BaseTestData dbTeste) : IClassFixture<BaseTestData>
 {
     private readonly MyContext _context = dbTeste.ServiceProvider.GetService<MyContext>()!;
 

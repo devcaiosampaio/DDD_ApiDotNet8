@@ -3,12 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Data.Test;
-public abstract class BaseTest
-{
-
-}
-
-public class DbTeste : IDisposable
+public sealed class BaseTestData : IDisposable
 {
     private readonly string connectionTestMySQL = @$"Persist Security Info=True;
                                                     Server=localhost;
@@ -18,7 +13,7 @@ public class DbTeste : IDisposable
                                                     Pwd=root";
     public ServiceProvider ServiceProvider { get; set; }
 
-    public DbTeste()
+    public BaseTestData()
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddDbContext<MyContext>( options =>
@@ -28,14 +23,14 @@ public class DbTeste : IDisposable
         ServiceProvider = serviceCollection.BuildServiceProvider();
         using (var context = ServiceProvider.GetService<MyContext>())
         {
-            context.Database.EnsureCreated();
+            context!.Database.EnsureCreated();
         }
     }
     public void Dispose()
     {
         using (var context = ServiceProvider.GetService<MyContext>())
         {
-            context.Database.EnsureDeleted();
+            context!.Database.EnsureDeleted();
         }
     }
 }
