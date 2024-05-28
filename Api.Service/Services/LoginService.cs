@@ -28,7 +28,7 @@ public class LoginService : ILoginService
         if (loginDto is null || string.IsNullOrWhiteSpace(loginDto.Email))
             return new
             {
-                autenticated = false,
+                authenticated = false,
                 message = "Falha ao autenticar"
             };
 
@@ -37,7 +37,7 @@ public class LoginService : ILoginService
         if (baseUser is null)
             return new
             {
-                autenticated = false,
+                authenticated = false,
                 message =  "Falha ao autenticar"
             };
 

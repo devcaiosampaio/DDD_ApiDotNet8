@@ -8,7 +8,7 @@ using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceTestGet : BaseTestService
+public class UserServiceTestGet : BaseUserServiceTest
 {
     private readonly Mock<IRepository<UserEntity>> _repositoryMock;
     private readonly UserService _userService;
@@ -16,7 +16,7 @@ public class UserServiceTestGet : BaseTestService
     public UserServiceTestGet()
     {
         _repositoryMock = new Mock<IRepository<UserEntity>>();
-        _userService = new UserService(_repositoryMock.Object, _mapper);
+        _userService = new UserService(_repositoryMock.Object, Mapper);
     }
     [Fact]
     public async Task GetUserService_IdValid_ReturnsUser()

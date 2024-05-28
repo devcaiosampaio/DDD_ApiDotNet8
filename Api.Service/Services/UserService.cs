@@ -17,15 +17,13 @@ namespace Api.Service.Services
         public async Task<UserDto?> Get(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            var model = _mapper.Map<UserModel>(entity);
-            return _mapper.Map<UserDto>(model);
+            return _mapper.Map<UserDto>(entity);
         }
 
         public async Task<IEnumerable<UserDto>?> GetAll()
         {
             var entities = await _repository.GetAllAsync();
-            var models = _mapper.Map<IEnumerable<UserModel>>(entities);
-            return _mapper.Map<IEnumerable<UserDto>>(models);
+            return _mapper.Map<IEnumerable<UserDto>>(entities);
         }
 
         public async Task<UserDtoCreateResult> Post(UserDtoCreateUpdate user)

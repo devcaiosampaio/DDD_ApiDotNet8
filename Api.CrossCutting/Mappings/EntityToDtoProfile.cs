@@ -8,7 +8,7 @@ public class EntityToDtoProfile : Profile
 {
     public EntityToDtoProfile()
     {
-        CreateMap<UserDtoCreateUpdate, UserEntity>()
+        CreateMap<UserDto, UserEntity>()
             .ReverseMap();
 
         CreateMap<UserDtoCreateResult, UserEntity>()

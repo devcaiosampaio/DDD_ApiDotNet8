@@ -1,16 +1,14 @@
 ﻿using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
-using Api.Domain.Interfaces.User.Services;
 using Api.Domain.Models;
 using Api.Service.Services;
-using Api.Service.Test.Usuario;
 using FluentAssertions;
 using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceGetAll : BaseTestService
+public class UserServiceGetAll : BaseUserServiceTest
 {
     private readonly Mock<IRepository<UserEntity>> _repositoryMock;
     private readonly UserService _userService;
@@ -18,7 +16,7 @@ public class UserServiceGetAll : BaseTestService
     public UserServiceGetAll()
     {
         _repositoryMock = new Mock<IRepository<UserEntity>>();
-        _userService = new UserService(_repositoryMock.Object, _mapper);
+        _userService = new UserService(_repositoryMock.Object, Mapper);
     }
     [Fact]
     public async Task GetAllUserService_HaveTwoUsers_ReturnsListOfTwoUsers()
@@ -48,22 +46,16 @@ public class UserServiceGetAll : BaseTestService
             .Setup(repo => repo.GetAllAsync())
             .ReturnsAsync(userEntities);
 
-        var userModels = _mapper.Map<IEnumerable<UserModel>>(userEntities);
-        var userDtos = _mapper.Map<IEnumerable<UserDto>>(userModels);
+        var userModels = Mapper.Map<IEnumerable<UserModel>>(userEntities);
+        var userDtos = Mapper.Map<IEnumerable<UserDto>>(userModels);
         
         //Act
         var result = await _userService.GetAll();
 
         //Assert
-        Assert.True(
-            result!.Count() == userDtos.Count()
-            && userDtos.Count() == 2);
 
-        result
-            .Should()
-            .BeEquivalentTo(userDtos, 
-                options => options.WithStrictOrdering()
-            );
+        result.Should().HaveCount(2);
+        result.Should().BeEquivalentTo(userDtos, options => options.WithStrictOrdering());
 
     }
     [Fact]
@@ -75,22 +67,16 @@ public class UserServiceGetAll : BaseTestService
             .Setup(repo => repo.GetAllAsync())
             .ReturnsAsync(userEntities);
 
-        var userModels = _mapper.Map<IEnumerable<UserModel>>(userEntities);
-        var userDtos = _mapper.Map<IEnumerable<UserDto>>(userModels);
+        var userModels = Mapper.Map<IEnumerable<UserModel>>(userEntities);
+        var userDtos = Mapper.Map<IEnumerable<UserDto>>(userModels);
 
         //Act
         var result = await _userService.GetAll();
 
         //Assert
-        Assert.True(
-            result!.Count() == userDtos.Count()
-            && userDtos.Count() == 0);
+        result.Should().BeEmpty();
+        result.Should().BeEquivalentTo(userDtos, options => options.WithStrictOrdering());
 
-        result
-            .Should()
-            .BeEquivalentTo(userDtos,
-                options => options.WithStrictOrdering()
-            );
 
     }
 }

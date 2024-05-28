@@ -1,11 +1,12 @@
 ﻿using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Api.Service.Services;
+using FluentAssertions;
 using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceTestDelete : BaseTestService
+public class UserServiceTestDelete : BaseUserServiceTest
 {
     private readonly Mock<IRepository<UserEntity>> _repositoryMock;
     private readonly UserService _userService;
@@ -13,37 +14,39 @@ public class UserServiceTestDelete : BaseTestService
     public UserServiceTestDelete()
     {
         _repositoryMock = new Mock<IRepository<UserEntity>>();
-        _userService = new UserService(_repositoryMock.Object, _mapper);
+        _userService = new UserService(_repositoryMock.Object, Mapper);
     }
     [Fact]
     public async Task DeleteUserService_IdValid_ReturnsTrue()
     {
-        //Arrange
-        Guid IdUsuario = Guid.NewGuid();
+        // Arrange
+        var userId = Guid.NewGuid();
         _repositoryMock
-            .Setup(repo => repo.DeleteAsync(IdUsuario))
-            .Returns(Task.FromResult(true));            
+            .Setup(repo => repo.DeleteAsync(userId))
+            .ReturnsAsync(true);
 
-        //Act
-        var result = await _userService.Delete(IdUsuario);
+        // Act
+        var result = await _userService.Delete(userId);
 
-        //Assert
-        Assert.True(result);
+        // Assert
+        result.Should().BeTrue();
+        _repositoryMock.Verify(repo => repo.DeleteAsync(userId), Times.Once);
 
     }
     [Fact]
     public async Task DeleteUserService_IdInvalid_ReturnsFalse()
     {
-        //Arrange
-        Guid IdUsuario = Guid.NewGuid();
+        // Arrange
+        var userId = Guid.NewGuid();
         _repositoryMock
-            .Setup(repo => repo.DeleteAsync(IdUsuario))
-            .Returns(Task.FromResult(false));
+            .Setup(repo => repo.DeleteAsync(userId))
+            .ReturnsAsync(false);
 
-        //Act
-        var result = await _userService.Delete(IdUsuario);
+        // Act
+        var result = await _userService.Delete(userId);
 
-        //Assert
-        Assert.False(result);
+        // Assert
+        result.Should().BeFalse();
+        _repositoryMock.Verify(repo => repo.DeleteAsync(userId), Times.Once);
     }
 }

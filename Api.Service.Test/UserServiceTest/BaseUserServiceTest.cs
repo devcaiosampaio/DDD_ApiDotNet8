@@ -1,13 +1,13 @@
 using AutoMapper;
 using Api.CrossCutting.Mappings;
-namespace Api.Service.Test;
+namespace Api.Service.Test.UserServiceTest;
 
-public abstract class BaseTestService
+public abstract class BaseUserServiceTest
 {
-    public IMapper _mapper;
-    protected BaseTestService()
+    public IMapper Mapper;
+    protected BaseUserServiceTest()
     {
-        _mapper = new AutoMapperFixture().GetMapper();
+        Mapper = new AutoMapperFixture().GetMapper();
     }
 }
 public sealed class AutoMapperFixture : IDisposable
