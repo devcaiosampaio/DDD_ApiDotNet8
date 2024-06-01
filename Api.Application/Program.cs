@@ -11,6 +11,10 @@ namespace Api.Application
 
             builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
+            if (builder.Environment.EnvironmentName == "Testing")
+            {
+                builder.Configuration.AddJsonFile("appsettings.Test.json", optional: false, reloadOnChange: true);
+            }
             // Add services to the container.
 
             builder.Services.AddControllers();

@@ -5,6 +5,7 @@ using Api.Domain.Interfaces.User.Services;
 using Api.Domain.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -78,8 +79,8 @@ public class LoginService : ILoginService
         return new
         {
             authenticated = true,
-            create = createDate.ToString("yyyy-MM-dd HH:mm:ss"),
-            expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
+            create = createDate.ToString("o", CultureInfo.InvariantCulture),
+            expiration = expirationDate.ToString("o", CultureInfo.InvariantCulture),
             accessToken = token,
             userName = user.Email,
             name = user.Name,

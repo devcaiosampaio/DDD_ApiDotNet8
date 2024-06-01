@@ -29,7 +29,7 @@ namespace Api.Application.Controllers
 
         [Authorize("Bearer")]
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}", Name = "GetWithId")]
         public async Task<ActionResult> GetId(Guid id)
         {
             if (!ModelState.IsValid)
@@ -53,7 +53,9 @@ namespace Api.Application.Controllers
                 return BadRequest(ModelState);
             try
             {
-                return Ok(await _userService.Post(user));
+                var result = await _userService.Post(user);
+                return result.Id == Guid.Empty ? BadRequest() :
+                    Created(new Uri(Url.Link("GetWithId", new { id = result.Id })!), result);
             }
             catch (ArgumentException e)
             {

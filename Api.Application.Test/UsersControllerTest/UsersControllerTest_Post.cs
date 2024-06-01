@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Net;
 
-namespace Api.Application.Test.UsersControllerTests;
+namespace Api.Application.Test.UsersControllerTest;
 public class UsersControllerTest_Post
 {
     private readonly Mock<IUserService> _userServiceMock;
@@ -36,6 +36,10 @@ public class UsersControllerTest_Post
             CreateAt = DateTime.UtcNow
         };
 
+        Mock<IUrlHelper> url = new();
+        url.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<object>())).Returns("http://localhost:7052");
+        _usersController.Url = url.Object;
+
         _userServiceMock.Setup(service => service.Post(It.IsAny<UserDtoCreateUpdate>()))
             .ReturnsAsync(userDtoCreateResult);
 
@@ -43,7 +47,7 @@ public class UsersControllerTest_Post
         var result = await _usersController.Post(userDtoCreate);
 
         // Assert
-        var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+        var okResult = result.Should().BeOfType<CreatedResult>().Subject;
 
         okResult.Value.Should().BeEquivalentTo(userDtoCreateResult);
 
