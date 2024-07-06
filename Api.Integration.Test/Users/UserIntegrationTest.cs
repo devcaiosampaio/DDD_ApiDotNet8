@@ -86,6 +86,22 @@ public class UserIntegrationTest : BaseIntegration
         userRetrieved.UpdateAt.Should().NotBe(DateTime.MinValue);
 
     }
+
+    [Fact]
+    public async Task Delete_ValidId_ReturnsTrue()
+    {
+        // Arrange
+        var userCreated = await CreateUser();
+        // Act
+        var response = await DeleteAsync($"users/{userCreated.Id}");
+        var getResult = await response.Content.ReadAsStringAsync();
+        var boolRetrieved = Convert.ToBoolean(getResult);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        boolRetrieved.Should().Be(true);
+
+    }
     private async Task<UserDtoCreateResult> CreateUser()
     {
         UserDto userDto = new()

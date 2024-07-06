@@ -69,6 +69,11 @@ public class BaseIntegration : IDisposable
             new StringContent(JsonSerializer.Serialize(dataClass), System.Text.Encoding.UTF8,
             "application/json"));
     }
+    public async Task<HttpResponseMessage> DeleteAsync(string url)
+    {
+        await AdicionarToken();
+        return await _client.DeleteAsync(url);
+    }
     private async Task AdicionarToken()
     {
         LoginDto loginDto = new()
