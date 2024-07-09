@@ -5,7 +5,7 @@ using Api.Domain.Interfaces.User.Services;
 using Api.Domain.Models;
 using AutoMapper;
 
-namespace Api.Service.Services
+namespace Api.Service.Services.User
 {
     public class UserService(IRepository<UserEntity> _repository, IMapper _mapper) : IUserService
     {

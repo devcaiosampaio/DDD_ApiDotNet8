@@ -1,6 +1,6 @@
 ﻿using Api.Domain.Entities;
 using Api.Domain.Interfaces;
-using Api.Service.Services;
+using Api.Service.Services.User;
 using FluentAssertions;
 using Moq;
 

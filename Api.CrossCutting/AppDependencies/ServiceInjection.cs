@@ -1,7 +1,7 @@
 ﻿using Api.CrossCutting.Mappings;
 using Api.Domain.Interfaces.User.Services;
 using Api.Domain.Security;
-using Api.Service.Services;
+using Api.Service.Services.User;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

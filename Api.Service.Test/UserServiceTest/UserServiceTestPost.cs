@@ -2,7 +2,7 @@
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.User.Services;
-using Api.Service.Services;
+using Api.Service.Services.User;
 using Api.Service.Test.Usuario;
 using Moq;
 using Xunit.Sdk;

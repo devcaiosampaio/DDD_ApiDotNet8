@@ -2,7 +2,7 @@
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.User.Repositories;
 using Api.Domain.Security;
-using Api.Service.Services;
+using Api.Service.Services.User;
 using Microsoft.Extensions.Options;
 using Moq;
 

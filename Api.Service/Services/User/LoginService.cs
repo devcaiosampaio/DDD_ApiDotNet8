@@ -10,10 +10,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 
-namespace Api.Service.Services;
+namespace Api.Service.Services.User;
 public class LoginService : ILoginService
 {
-    private readonly IUserRepository _userRepository;  
+    private readonly IUserRepository _userRepository;
     private readonly SigningConfigurations _signingConfigurations;
     private readonly IOptions<TokenConfiguration> _tokenConfiguration;
     public LoginService(IUserRepository userRepository,
@@ -39,7 +39,7 @@ public class LoginService : ILoginService
             return new
             {
                 authenticated = false,
-                message =  "Falha ao autenticar"
+                message = "Falha ao autenticar"
             };
 
         ClaimsIdentity identity = new(
