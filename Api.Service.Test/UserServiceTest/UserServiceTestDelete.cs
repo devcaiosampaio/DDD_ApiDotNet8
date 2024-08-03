@@ -6,7 +6,7 @@ using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceTestDelete : BaseUserServiceTest
+public class UserServiceTestDelete : BaseServiceTest
 {
     private readonly Mock<IRepository<UserEntity>> _repositoryMock;
     private readonly UserService _userService;

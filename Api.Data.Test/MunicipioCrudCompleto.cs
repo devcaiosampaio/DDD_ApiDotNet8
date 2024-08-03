@@ -35,7 +35,7 @@ public class MunicipioCrudCompleto(BaseTestData dbTeste) : IClassFixture<BaseTes
     }   
 
     [Fact]
-    public async Task Update_UserExists_MunicipioIsUpdated()
+    public async Task Update_MunicipioExists_MunicipioIsUpdated()
     {
         // Arrange
         MunicipioImplementation _repository = new(_context);
@@ -60,7 +60,7 @@ public class MunicipioCrudCompleto(BaseTestData dbTeste) : IClassFixture<BaseTes
         updatedCity.Nome.Should().Be(updateNome);
     }
     [Fact]
-    public async Task Delete_MunicipioExists_UserIsDeleted()
+    public async Task Delete_MunicipioExists_MunicipioIsDeleted()
     {
         // Arrange
         MunicipioImplementation _repository = new(_context);

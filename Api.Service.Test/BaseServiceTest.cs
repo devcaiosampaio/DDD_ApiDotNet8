@@ -1,11 +1,11 @@
 using AutoMapper;
 using Api.CrossCutting.Mappings;
-namespace Api.Service.Test.UserServiceTest;
+namespace Api.Service.Test;
 
-public abstract class BaseUserServiceTest
+public abstract class BaseServiceTest
 {
     public IMapper Mapper;
-    protected BaseUserServiceTest()
+    protected BaseServiceTest()
     {
         Mapper = MapperGenerator.GetMapper();
     }

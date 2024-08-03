@@ -8,7 +8,7 @@ using Moq;
 
 namespace Api.Service.Test.UserServiceTest;
 
-public class UserServiceTestGetAll : BaseUserServiceTest
+public class UserServiceTestGetAll : BaseServiceTest
 {
     private readonly Mock<IRepository<UserEntity>> _repositoryMock;
     private readonly UserService _userService;

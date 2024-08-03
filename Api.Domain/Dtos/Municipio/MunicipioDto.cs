@@ -1,12 +1,10 @@
-﻿
+﻿namespace Api.Domain.Dtos.Municipio;
 
-namespace Api.Domain.Dtos.Municipio;
-
-public class MunicipioDto
+public record struct MunicipioDto
 {
     public Guid Id { get; set; }
 
-    public string Nome { get; set; } = string.Empty;
+    public string Nome { get; set; }
 
     public int CodIBGE { get; set; }
 

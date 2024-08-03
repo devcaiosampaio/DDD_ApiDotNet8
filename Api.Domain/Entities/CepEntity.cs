@@ -19,6 +19,6 @@ public class CepEntity : BaseEntity
     public Guid MunicipioId { get; set; }
 
     [Required]
-    public MunicipioEntity Municipio { get; set; } = new MunicipioEntity();
+    public MunicipioEntity? Municipio { get; set; }
 }
 

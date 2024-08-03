@@ -12,7 +12,7 @@ public interface ICepService
 
     Task<CepDtoCreateResult> Post(CepDtoCreateUpdate cep);
 
-    Task<CepDtoCreateResult> Put(CepDtoCreateUpdate cep, Guid id);
+    Task<CepDtoUpdateResult> Put(CepDtoCreateUpdate cep, Guid id);
 
     Task<bool> Delete(Guid id);
 }

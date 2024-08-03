@@ -3,7 +3,7 @@ using Api.Domain.Entities;
 using Api.Domain.Models;
 
 namespace Api.Service.Test.UserServiceTest.MappingTest;
-public class MappingUserTest: BaseUserServiceTest
+public class MappingUserTest: BaseServiceTest
 {
     [Fact]
     public void MappingUserModelToUserEntity_UserModelValid_ReturnsUserEntityValid()

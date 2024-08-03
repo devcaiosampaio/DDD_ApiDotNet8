@@ -8,7 +8,7 @@ using Moq;
 using Xunit.Sdk;
 namespace Api.Service.Test.UserServiceTest
 {
-    public class UserServiceTestPost : BaseUserServiceTest
+    public class UserServiceTestPost : BaseServiceTest
     {
         private readonly Mock<IRepository<UserEntity>> _repositoryMock;
         private readonly UserService _userService;

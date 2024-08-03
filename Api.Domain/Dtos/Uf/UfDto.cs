@@ -1,7 +1,7 @@
 ﻿
 namespace Api.Domain.Dtos.Uf;
 
-public class UfDto
+public record struct UfDto
 {
     public Guid Id { get; set; }
     public string Sigla { get; set; }
